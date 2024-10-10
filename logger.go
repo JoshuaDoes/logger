@@ -23,7 +23,7 @@ import (
 )
 
 type Logger struct {
-	logger    *logrus.Logger
+	*logrus.Logger
 	prefix    string
 	Verbosity int
 }
@@ -37,6 +37,17 @@ type Logger struct {
 func NewLogger(prefix string, verbosity int) *Logger {
 	formatter := new(prefixed.TextFormatter)
 	formatter.FullTimestamp = true
+	formatter.TimestampFormat = "Mon, Jan _2, 2006 - 03:04:05.000 PM MST Z07:00:00"
+	formatter.SetColorScheme(&prefixed.ColorScheme{
+		InfoLevelStyle:  "green",
+		WarnLevelStyle:  "orange",
+		ErrorLevelStyle: "red",
+		FatalLevelStyle: "purple",
+		PanicLevelStyle: "white",
+		DebugLevelStyle: "cyan",
+		PrefixStyle:     "white+b",
+		TimestampStyle:  "black+h",
+	})
 
 	log := logrus.New()
 	log.Formatter = formatter
@@ -51,30 +62,75 @@ func NewLogger(prefix string, verbosity int) *Logger {
 	}
 
 	return &Logger{
-		logger: log,
+		Logger: log,
 		prefix: prefix,
 		Verbosity: verbosity,
 	}
 }
 
 func (logger *Logger) Trace(args ...interface{}) {
-	logger.logger.WithField("prefix", logger.prefix).Trace(args...)
+	logger.WithField("prefix", logger.prefix).Trace(args...)
 }
 func (logger *Logger) Debug(args ...interface{}) {
-	logger.logger.WithField("prefix", logger.prefix).Debug(args...)
+	logger.WithField("prefix", logger.prefix).Debug(args...)
 }
 func (logger *Logger) Info(args ...interface{}) {
-	logger.logger.WithField("prefix", logger.prefix).Info(args...)
+	logger.WithField("prefix", logger.prefix).Info(args...)
 }
 func (logger *Logger) Warn(args ...interface{}) {
-	logger.logger.WithField("prefix", logger.prefix).Warn(args...)
+	logger.WithField("prefix", logger.prefix).Warn(args...)
 }
 func (logger *Logger) Error(args ...interface{}) {
-	logger.logger.WithField("prefix", logger.prefix).Error(args...)
+	logger.WithField("prefix", logger.prefix).Error(args...)
 }
 func (logger *Logger) Fatal(args ...interface{}) {
-	logger.logger.WithField("prefix", logger.prefix).Fatal(args...)
+	logger.WithField("prefix", logger.prefix).Fatal(args...)
 }
 func (logger *Logger) Panic(args ...interface{}) {
-	logger.logger.WithField("prefix", logger.prefix).Panic(args...)
+	logger.WithField("prefix", logger.prefix).Panic(args...)
 }
+
+func (logger *Logger) Traceln(args ...interface{}) {
+	logger.WithField("prefix", logger.prefix).Traceln(args...)
+}
+func (logger *Logger) Debugln(args ...interface{}) {
+	logger.WithField("prefix", logger.prefix).Debugln(args...)
+}
+func (logger *Logger) Infoln(args ...interface{}) {
+	logger.WithField("prefix", logger.prefix).Infoln(args...)
+}
+func (logger *Logger) Warnln(args ...interface{}) {
+	logger.WithField("prefix", logger.prefix).Warnln(args...)
+}
+func (logger *Logger) Errorln(args ...interface{}) {
+	logger.WithField("prefix", logger.prefix).Errorln(args...)
+}
+func (logger *Logger) Fatalln(args ...interface{}) {
+	logger.WithField("prefix", logger.prefix).Fatalln(args...)
+}
+func (logger *Logger) Panicln(args ...interface{}) {
+	logger.WithField("prefix", logger.prefix).Panicln(args...)
+}
+
+func (logger *Logger) Tracef(fmt string, args ...interface{}) {
+	logger.WithField("prefix", logger.prefix).Tracef(fmt, args...)
+}
+func (logger *Logger) Debugf(fmt string, args ...interface{}) {
+	logger.WithField("prefix", logger.prefix).Debugf(fmt, args...)
+}
+func (logger *Logger) Infof(fmt string, args ...interface{}) {
+	logger.WithField("prefix", logger.prefix).Infof(fmt, args...)
+}
+func (logger *Logger) Warnf(fmt string, args ...interface{}) {
+	logger.WithField("prefix", logger.prefix).Warnf(fmt, args...)
+}
+func (logger *Logger) Errorf(fmt string, args ...interface{}) {
+	logger.WithField("prefix", logger.prefix).Errorf(fmt, args...)
+}
+func (logger *Logger) Fatalf(fmt string, args ...interface{}) {
+	logger.WithField("prefix", logger.prefix).Fatalf(fmt, args...)
+}
+func (logger *Logger) Panicf(fmt string, args ...interface{}) {
+	logger.WithField("prefix", logger.prefix).Panicf(fmt, args...)
+}
+
