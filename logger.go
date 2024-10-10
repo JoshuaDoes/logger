@@ -37,7 +37,7 @@ type Logger struct {
 func NewLogger(prefix string, verbosity int) *Logger {
 	formatter := new(prefixed.TextFormatter)
 	formatter.FullTimestamp = true
-	formatter.TimestampFormat = "Mon, Jan _2, 2006 - 03:04:05.000 PM MST Z07:00:00"
+	formatter.TimestampFormat = "Mon, Jan _2, 2006 - 03:04:05.000 PM MST"
 	formatter.SetColorScheme(&prefixed.ColorScheme{
 		InfoLevelStyle:  "green",
 		WarnLevelStyle:  "orange",
